@@ -1,0 +1,33 @@
+import psutil
+import time
+
+def monitor_system():
+    # continuously monitors system
+    while True:
+        # Get CPU usage
+        cpu_percent = psutil.cpu_percent(interval=1)
+        print ("CPU Usage: {}%". format(cpu_percent))
+
+        # Get memory Usage 
+        mem = psutil.virtual_memory()
+        mem_percent = mem.percent
+        print("Memory Usage: {}%".format(mem_percent))
+
+        # Get disk Usage
+        disk = psutil.disk_usage('/')
+        disk_percent = disk.percent
+        print("Disk Usage: {}%".format(disk_percent))
+
+        # Check if CPU of memory usage is above threshold
+        if cpu_percent > 80:
+            print("CPU usage is high. Take action!")
+
+        if mem_percent > 80: 
+            print("Memory usage is high. Take action!")
+
+        # Sleep for a few seconds before checking again
+        time.sleep(5)
+
+    if __name__ == "__main__":
+        monitor_system()
+        
